@@ -1,0 +1,1366 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "006a2168-4a32-4005-adc1-df0ff8fe0ef9",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Dataset loaded successfully!\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "df = pd.read_csv(r\"C:\\Users\\user\\Downloads\\archive (1)\\student_performance.csv\")\n",
+    "\n",
+    "print(\"Dataset loaded successfully!\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "41bbceaa-1124-49b3-a4e7-0ff6be31e55d",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "First 5 rows:\n",
+      "   student_id  weekly_self_study_hours  attendance_percentage  \\\n",
+      "0           1                     18.5                   95.6   \n",
+      "1           2                     14.0                   80.0   \n",
+      "2           3                     19.5                   86.3   \n",
+      "3           4                     25.7                   70.2   \n",
+      "4           5                     13.4                   81.9   \n",
+      "\n",
+      "   class_participation  total_score grade  \n",
+      "0                  3.8         97.9     A  \n",
+      "1                  2.5         83.9     B  \n",
+      "2                  5.3        100.0     A  \n",
+      "3                  7.0        100.0     A  \n",
+      "4                  6.9         92.0     A  \n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"\\nFirst 5 rows:\")\n",
+    "print(df.head())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "8333343e-f1e8-496b-92e9-f055d1d8aee4",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "Last 5 rows:\n",
+      "        student_id  weekly_self_study_hours  attendance_percentage  \\\n",
+      "999995      999996                     18.0                   95.5   \n",
+      "999996      999997                     15.7                   82.7   \n",
+      "999997      999998                     14.2                   85.1   \n",
+      "999998      999999                     25.3                   90.0   \n",
+      "999999     1000000                     18.3                   84.6   \n",
+      "\n",
+      "        class_participation  total_score grade  \n",
+      "999995                  4.8        100.0     A  \n",
+      "999996                  6.7         88.3     A  \n",
+      "999997                  5.8         87.9     A  \n",
+      "999998                  5.3        100.0     A  \n",
+      "999999                  4.1        100.0     A  \n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"\\nLast 5 rows:\")\n",
+    "print(df.tail())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "9949d269-ba11-455e-82e5-18a1c9dc7486",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      " Shape of the dataset\n",
+      "(1000000, 6)\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"\\n Shape of the dataset\")\n",
+    "print(df.shape)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "8f7a2556-ff45-4ae9-a134-e38a21bafd09",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      " Column names:\n",
+      "Index(['student_id', 'weekly_self_study_hours', 'attendance_percentage',\n",
+      "       'class_participation', 'total_score', 'grade'],\n",
+      "      dtype='str')\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"\\n Column names:\")\n",
+    "print(df.columns)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "a65bd3c3-f921-4a76-ab7f-5418c1c09315",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.DataFrame'>\n",
+      "RangeIndex: 1000000 entries, 0 to 999999\n",
+      "Data columns (total 6 columns):\n",
+      " #   Column                   Non-Null Count    Dtype  \n",
+      "---  ------                   --------------    -----  \n",
+      " 0   student_id               1000000 non-null  int64  \n",
+      " 1   weekly_self_study_hours  1000000 non-null  float64\n",
+      " 2   attendance_percentage    1000000 non-null  float64\n",
+      " 3   class_participation      1000000 non-null  float64\n",
+      " 4   total_score              1000000 non-null  float64\n",
+      " 5   grade                    1000000 non-null  str    \n",
+      "dtypes: float64(4), int64(1), str(1)\n",
+      "memory usage: 45.8 MB\n",
+      "None\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(df.info())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "264f4ca0-b1cb-41e1-9a83-6c7c99f607a8",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<bound method NDFrame.describe of         student_id  weekly_self_study_hours  attendance_percentage  \\\n",
+      "0                1                     18.5                   95.6   \n",
+      "1                2                     14.0                   80.0   \n",
+      "2                3                     19.5                   86.3   \n",
+      "3                4                     25.7                   70.2   \n",
+      "4                5                     13.4                   81.9   \n",
+      "...            ...                      ...                    ...   \n",
+      "999995      999996                     18.0                   95.5   \n",
+      "999996      999997                     15.7                   82.7   \n",
+      "999997      999998                     14.2                   85.1   \n",
+      "999998      999999                     25.3                   90.0   \n",
+      "999999     1000000                     18.3                   84.6   \n",
+      "\n",
+      "        class_participation  total_score grade  \n",
+      "0                       3.8         97.9     A  \n",
+      "1                       2.5         83.9     B  \n",
+      "2                       5.3        100.0     A  \n",
+      "3                       7.0        100.0     A  \n",
+      "4                       6.9         92.0     A  \n",
+      "...                     ...          ...   ...  \n",
+      "999995                  4.8        100.0     A  \n",
+      "999996                  6.7         88.3     A  \n",
+      "999997                  5.8         87.9     A  \n",
+      "999998                  5.3        100.0     A  \n",
+      "999999                  4.1        100.0     A  \n",
+      "\n",
+      "[1000000 rows x 6 columns]>\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(df.describe)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "e91af026-147a-4d02-b6c8-c480e99610ba",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "student_id                    6\n",
+      "weekly_self_study_hours    13.4\n",
+      "attendance_percentage      65.1\n",
+      "class_participation         5.0\n",
+      "total_score                97.5\n",
+      "grade                         A\n",
+      "Name: 5, dtype: object\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(df.iloc[5])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "eb41305c-65d2-489f-8264-19547af03dbf",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "   student_id  weekly_self_study_hours  attendance_percentage  \\\n",
+      "0           1                     18.5                   95.6   \n",
+      "1           2                     14.0                   80.0   \n",
+      "2           3                     19.5                   86.3   \n",
+      "3           4                     25.7                   70.2   \n",
+      "4           5                     13.4                   81.9   \n",
+      "5           6                     13.4                   65.1   \n",
+      "6           7                     26.1                   81.8   \n",
+      "7           8                     20.4                  100.0   \n",
+      "8           9                     11.7                  100.0   \n",
+      "9          10                     18.8                   67.6   \n",
+      "\n",
+      "   class_participation  total_score grade  \n",
+      "0                  3.8         97.9     A  \n",
+      "1                  2.5         83.9     B  \n",
+      "2                  5.3        100.0     A  \n",
+      "3                  7.0        100.0     A  \n",
+      "4                  6.9         92.0     A  \n",
+      "5                  5.0         97.5     A  \n",
+      "6                  5.9        100.0     A  \n",
+      "7                  4.0         96.1     A  \n",
+      "8                  8.2         69.8     C  \n",
+      "9                  6.0         80.3     B  \n"
+     ]
+    }
+   ],
+   "source": [
+    "print(df.iloc[0:10])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "9ba40293-b558-4344-a5bd-520f30be11d9",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "    student_id  weekly_self_study_hours  attendance_percentage  \\\n",
+      "0            1                     18.5                   95.6   \n",
+      "1            2                     14.0                   80.0   \n",
+      "2            3                     19.5                   86.3   \n",
+      "3            4                     25.7                   70.2   \n",
+      "4            5                     13.4                   81.9   \n",
+      "5            6                     13.4                   65.1   \n",
+      "6            7                     26.1                   81.8   \n",
+      "7            8                     20.4                  100.0   \n",
+      "8            9                     11.7                  100.0   \n",
+      "9           10                     18.8                   67.6   \n",
+      "10          11                     11.8                   82.3   \n",
+      "11          12                     11.7                   75.9   \n",
+      "12          13                     16.7                   77.9   \n",
+      "13          14                      1.6                   92.1   \n",
+      "14          15                      2.9                   90.7   \n",
+      "\n",
+      "    class_participation  total_score grade  \n",
+      "0                   3.8         97.9     A  \n",
+      "1                   2.5         83.9     B  \n",
+      "2                   5.3        100.0     A  \n",
+      "3                   7.0        100.0     A  \n",
+      "4                   6.9         92.0     A  \n",
+      "5                   5.0         97.5     A  \n",
+      "6                   5.9        100.0     A  \n",
+      "7                   4.0         96.1     A  \n",
+      "8                   8.2         69.8     C  \n",
+      "9                   6.0         80.3     B  \n",
+      "10                  4.6         66.4     C  \n",
+      "11                  7.6         72.5     B  \n",
+      "12                  2.5         95.2     A  \n",
+      "13                  5.7         60.9     C  \n",
+      "14                  5.4         52.1     D  \n"
+     ]
+    }
+   ],
+   "source": [
+    "print(df.iloc[0:15])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "7dd6bf05-da79-472e-b041-9e64e72256bb",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Average score: 84.2838453\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"Average score:\", df[\"total_score\"].mean())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "81c416cb-4d3a-4401-a226-cc960111956e",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Highest score: 100.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"Highest score:\", df[\"total_score\"].max())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "7ea4524d-d6f8-4c35-ac9d-d2257fb6aab8",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Average attendance: 84.711046\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"Average attendance:\", df[\"attendance_percentage\"].mean())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "532c7acf-c160-472b-b1c7-6386c42cf44b",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "        student_id  weekly_self_study_hours  attendance_percentage  \\\n",
+      "0                1                     18.5                   95.6   \n",
+      "7                8                     20.4                  100.0   \n",
+      "8                9                     11.7                  100.0   \n",
+      "13              14                      1.6                   92.1   \n",
+      "14              15                      2.9                   90.7   \n",
+      "...            ...                      ...                    ...   \n",
+      "999984      999985                     13.3                   92.3   \n",
+      "999985      999986                     17.9                   99.3   \n",
+      "999986      999987                     16.0                   91.0   \n",
+      "999989      999990                     24.7                   90.2   \n",
+      "999995      999996                     18.0                   95.5   \n",
+      "\n",
+      "        class_participation  total_score grade  \n",
+      "0                       3.8         97.9     A  \n",
+      "7                       4.0         96.1     A  \n",
+      "8                       8.2         69.8     C  \n",
+      "13                      5.7         60.9     C  \n",
+      "14                      5.4         52.1     D  \n",
+      "...                     ...          ...   ...  \n",
+      "999984                  6.3         83.8     B  \n",
+      "999985                  3.4        100.0     A  \n",
+      "999986                  6.0         84.1     B  \n",
+      "999989                  4.1        100.0     A  \n",
+      "999995                  4.8        100.0     A  \n",
+      "\n",
+      "[306971 rows x 6 columns]\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(df[df[\"attendance_percentage\"] > 90])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "c3d1b541-d65d-4837-8e7d-500e7461557b",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "        student_id  weekly_self_study_hours  attendance_percentage  \\\n",
+      "3                4                     25.7                   70.2   \n",
+      "6                7                     26.1                   81.8   \n",
+      "7                8                     20.4                  100.0   \n",
+      "20              21                     25.3                   89.3   \n",
+      "31              32                     28.0                   89.2   \n",
+      "...            ...                      ...                    ...   \n",
+      "999989      999990                     24.7                   90.2   \n",
+      "999991      999992                     30.0                   87.4   \n",
+      "999992      999993                     26.3                   84.6   \n",
+      "999993      999994                     20.7                   82.4   \n",
+      "999998      999999                     25.3                   90.0   \n",
+      "\n",
+      "        class_participation  total_score grade  \n",
+      "3                       7.0        100.0     A  \n",
+      "6                       5.9        100.0     A  \n",
+      "7                       4.0         96.1     A  \n",
+      "20                      6.4        100.0     A  \n",
+      "31                      6.5        100.0     A  \n",
+      "...                     ...          ...   ...  \n",
+      "999989                  4.1        100.0     A  \n",
+      "999991                  6.7        100.0     A  \n",
+      "999992                  4.5        100.0     A  \n",
+      "999993                  5.5         99.1     A  \n",
+      "999998                  5.3        100.0     A  \n",
+      "\n",
+      "[234996 rows x 6 columns]\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(df[df[\"weekly_self_study_hours\"] > 20])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "776c4357-570e-4934-9cc4-ba27d571eb60",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "        student_id  weekly_self_study_hours  attendance_percentage  \\\n",
+      "114309      114310                      0.0                   72.5   \n",
+      "384794      384795                      0.0                   84.0   \n",
+      "128034      128035                      0.0                   74.4   \n",
+      "430442      430443                      1.5                   70.5   \n",
+      "2118          2119                      0.0                   79.8   \n",
+      "69236        69237                      0.8                   73.6   \n",
+      "172145      172146                      0.1                   97.6   \n",
+      "469884      469885                      2.4                   87.6   \n",
+      "429373      429374                      0.0                   62.8   \n",
+      "392503      392504                      2.3                   95.9   \n",
+      "\n",
+      "        class_participation  total_score grade  \n",
+      "114309                  3.8          9.4     F  \n",
+      "384794                  5.0         12.2     F  \n",
+      "128034                  6.9         14.4     F  \n",
+      "430442                  5.0         14.6     F  \n",
+      "2118                    2.7         14.6     F  \n",
+      "69236                   7.2         14.7     F  \n",
+      "172145                  3.0         15.7     F  \n",
+      "469884                  4.2         15.9     F  \n",
+      "429373                  2.3         16.2     F  \n",
+      "392503                  6.2         16.4     F  \n"
+     ]
+    }
+   ],
+   "source": [
+    "print(df.sort_values(\"total_score\").head(10))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "57f10808-82cf-47bd-abc5-81ce8f1bbbd4",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>student_id</th>\n",
+       "      <th>weekly_self_study_hours</th>\n",
+       "      <th>attendance_percentage</th>\n",
+       "      <th>class_participation</th>\n",
+       "      <th>total_score</th>\n",
+       "      <th>grade</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>4</td>\n",
+       "      <td>25.7</td>\n",
+       "      <td>70.2</td>\n",
+       "      <td>7.0</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>7</td>\n",
+       "      <td>26.1</td>\n",
+       "      <td>81.8</td>\n",
+       "      <td>5.9</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>8</td>\n",
+       "      <td>20.4</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>4.0</td>\n",
+       "      <td>96.1</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>20</th>\n",
+       "      <td>21</td>\n",
+       "      <td>25.3</td>\n",
+       "      <td>89.3</td>\n",
+       "      <td>6.4</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>31</th>\n",
+       "      <td>32</td>\n",
+       "      <td>28.0</td>\n",
+       "      <td>89.2</td>\n",
+       "      <td>6.5</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999989</th>\n",
+       "      <td>999990</td>\n",
+       "      <td>24.7</td>\n",
+       "      <td>90.2</td>\n",
+       "      <td>4.1</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999991</th>\n",
+       "      <td>999992</td>\n",
+       "      <td>30.0</td>\n",
+       "      <td>87.4</td>\n",
+       "      <td>6.7</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999992</th>\n",
+       "      <td>999993</td>\n",
+       "      <td>26.3</td>\n",
+       "      <td>84.6</td>\n",
+       "      <td>4.5</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999993</th>\n",
+       "      <td>999994</td>\n",
+       "      <td>20.7</td>\n",
+       "      <td>82.4</td>\n",
+       "      <td>5.5</td>\n",
+       "      <td>99.1</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999998</th>\n",
+       "      <td>999999</td>\n",
+       "      <td>25.3</td>\n",
+       "      <td>90.0</td>\n",
+       "      <td>5.3</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>234996 rows × 6 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        student_id  weekly_self_study_hours  attendance_percentage  \\\n",
+       "3                4                     25.7                   70.2   \n",
+       "6                7                     26.1                   81.8   \n",
+       "7                8                     20.4                  100.0   \n",
+       "20              21                     25.3                   89.3   \n",
+       "31              32                     28.0                   89.2   \n",
+       "...            ...                      ...                    ...   \n",
+       "999989      999990                     24.7                   90.2   \n",
+       "999991      999992                     30.0                   87.4   \n",
+       "999992      999993                     26.3                   84.6   \n",
+       "999993      999994                     20.7                   82.4   \n",
+       "999998      999999                     25.3                   90.0   \n",
+       "\n",
+       "        class_participation  total_score grade  \n",
+       "3                       7.0        100.0     A  \n",
+       "6                       5.9        100.0     A  \n",
+       "7                       4.0         96.1     A  \n",
+       "20                      6.4        100.0     A  \n",
+       "31                      6.5        100.0     A  \n",
+       "...                     ...          ...   ...  \n",
+       "999989                  4.1        100.0     A  \n",
+       "999991                  6.7        100.0     A  \n",
+       "999992                  4.5        100.0     A  \n",
+       "999993                  5.5         99.1     A  \n",
+       "999998                  5.3        100.0     A  \n",
+       "\n",
+       "[234996 rows x 6 columns]"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[df[\"weekly_self_study_hours\"] > 20]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "60092fd6-63cf-4f00-9bad-7776a7247857",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>student_id</th>\n",
+       "      <th>weekly_self_study_hours</th>\n",
+       "      <th>attendance_percentage</th>\n",
+       "      <th>class_participation</th>\n",
+       "      <th>total_score</th>\n",
+       "      <th>grade</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1</td>\n",
+       "      <td>18.5</td>\n",
+       "      <td>95.6</td>\n",
+       "      <td>3.8</td>\n",
+       "      <td>97.9</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>3</td>\n",
+       "      <td>19.5</td>\n",
+       "      <td>86.3</td>\n",
+       "      <td>5.3</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>4</td>\n",
+       "      <td>25.7</td>\n",
+       "      <td>70.2</td>\n",
+       "      <td>7.0</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>5</td>\n",
+       "      <td>13.4</td>\n",
+       "      <td>81.9</td>\n",
+       "      <td>6.9</td>\n",
+       "      <td>92.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>6</td>\n",
+       "      <td>13.4</td>\n",
+       "      <td>65.1</td>\n",
+       "      <td>5.0</td>\n",
+       "      <td>97.5</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999995</th>\n",
+       "      <td>999996</td>\n",
+       "      <td>18.0</td>\n",
+       "      <td>95.5</td>\n",
+       "      <td>4.8</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999996</th>\n",
+       "      <td>999997</td>\n",
+       "      <td>15.7</td>\n",
+       "      <td>82.7</td>\n",
+       "      <td>6.7</td>\n",
+       "      <td>88.3</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999997</th>\n",
+       "      <td>999998</td>\n",
+       "      <td>14.2</td>\n",
+       "      <td>85.1</td>\n",
+       "      <td>5.8</td>\n",
+       "      <td>87.9</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999998</th>\n",
+       "      <td>999999</td>\n",
+       "      <td>25.3</td>\n",
+       "      <td>90.0</td>\n",
+       "      <td>5.3</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999999</th>\n",
+       "      <td>1000000</td>\n",
+       "      <td>18.3</td>\n",
+       "      <td>84.6</td>\n",
+       "      <td>4.1</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>548644 rows × 6 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        student_id  weekly_self_study_hours  attendance_percentage  \\\n",
+       "0                1                     18.5                   95.6   \n",
+       "2                3                     19.5                   86.3   \n",
+       "3                4                     25.7                   70.2   \n",
+       "4                5                     13.4                   81.9   \n",
+       "5                6                     13.4                   65.1   \n",
+       "...            ...                      ...                    ...   \n",
+       "999995      999996                     18.0                   95.5   \n",
+       "999996      999997                     15.7                   82.7   \n",
+       "999997      999998                     14.2                   85.1   \n",
+       "999998      999999                     25.3                   90.0   \n",
+       "999999     1000000                     18.3                   84.6   \n",
+       "\n",
+       "        class_participation  total_score grade  \n",
+       "0                       3.8         97.9     A  \n",
+       "2                       5.3        100.0     A  \n",
+       "3                       7.0        100.0     A  \n",
+       "4                       6.9         92.0     A  \n",
+       "5                       5.0         97.5     A  \n",
+       "...                     ...          ...   ...  \n",
+       "999995                  4.8        100.0     A  \n",
+       "999996                  6.7         88.3     A  \n",
+       "999997                  5.8         87.9     A  \n",
+       "999998                  5.3        100.0     A  \n",
+       "999999                  4.1        100.0     A  \n",
+       "\n",
+       "[548644 rows x 6 columns]"
+      ]
+     },
+     "execution_count": 23,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[df[\"grade\"] == \"A\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "0b972885-59f0-4fe8-b87f-691d17ddb35e",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>student_id</th>\n",
+       "      <th>weekly_self_study_hours</th>\n",
+       "      <th>attendance_percentage</th>\n",
+       "      <th>class_participation</th>\n",
+       "      <th>total_score</th>\n",
+       "      <th>grade</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>254</th>\n",
+       "      <td>255</td>\n",
+       "      <td>4.4</td>\n",
+       "      <td>83.1</td>\n",
+       "      <td>6.5</td>\n",
+       "      <td>38.9</td>\n",
+       "      <td>F</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>382</th>\n",
+       "      <td>383</td>\n",
+       "      <td>0.1</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>9.0</td>\n",
+       "      <td>33.8</td>\n",
+       "      <td>F</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>544</th>\n",
+       "      <td>545</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>75.7</td>\n",
+       "      <td>6.8</td>\n",
+       "      <td>37.8</td>\n",
+       "      <td>F</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>668</th>\n",
+       "      <td>669</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>86.4</td>\n",
+       "      <td>4.5</td>\n",
+       "      <td>34.5</td>\n",
+       "      <td>F</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>977</th>\n",
+       "      <td>978</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>95.6</td>\n",
+       "      <td>3.0</td>\n",
+       "      <td>35.8</td>\n",
+       "      <td>F</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999731</th>\n",
+       "      <td>999732</td>\n",
+       "      <td>2.8</td>\n",
+       "      <td>96.5</td>\n",
+       "      <td>7.0</td>\n",
+       "      <td>39.9</td>\n",
+       "      <td>F</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999733</th>\n",
+       "      <td>999734</td>\n",
+       "      <td>0.1</td>\n",
+       "      <td>88.8</td>\n",
+       "      <td>9.9</td>\n",
+       "      <td>34.7</td>\n",
+       "      <td>F</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999832</th>\n",
+       "      <td>999833</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>90.9</td>\n",
+       "      <td>6.5</td>\n",
+       "      <td>30.4</td>\n",
+       "      <td>F</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999887</th>\n",
+       "      <td>999888</td>\n",
+       "      <td>3.5</td>\n",
+       "      <td>77.5</td>\n",
+       "      <td>8.0</td>\n",
+       "      <td>34.2</td>\n",
+       "      <td>F</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999906</th>\n",
+       "      <td>999907</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>82.3</td>\n",
+       "      <td>9.7</td>\n",
+       "      <td>33.0</td>\n",
+       "      <td>F</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>6204 rows × 6 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        student_id  weekly_self_study_hours  attendance_percentage  \\\n",
+       "254            255                      4.4                   83.1   \n",
+       "382            383                      0.1                  100.0   \n",
+       "544            545                      0.0                   75.7   \n",
+       "668            669                      0.0                   86.4   \n",
+       "977            978                      0.0                   95.6   \n",
+       "...            ...                      ...                    ...   \n",
+       "999731      999732                      2.8                   96.5   \n",
+       "999733      999734                      0.1                   88.8   \n",
+       "999832      999833                      0.0                   90.9   \n",
+       "999887      999888                      3.5                   77.5   \n",
+       "999906      999907                      0.0                   82.3   \n",
+       "\n",
+       "        class_participation  total_score grade  \n",
+       "254                     6.5         38.9     F  \n",
+       "382                     9.0         33.8     F  \n",
+       "544                     6.8         37.8     F  \n",
+       "668                     4.5         34.5     F  \n",
+       "977                     3.0         35.8     F  \n",
+       "...                     ...          ...   ...  \n",
+       "999731                  7.0         39.9     F  \n",
+       "999733                  9.9         34.7     F  \n",
+       "999832                  6.5         30.4     F  \n",
+       "999887                  8.0         34.2     F  \n",
+       "999906                  9.7         33.0     F  \n",
+       "\n",
+       "[6204 rows x 6 columns]"
+      ]
+     },
+     "execution_count": 24,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[df[\"grade\"] == \"F\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "7695583f-7db3-456d-85e6-a47698896ad6",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>student_id</th>\n",
+       "      <th>weekly_self_study_hours</th>\n",
+       "      <th>attendance_percentage</th>\n",
+       "      <th>class_participation</th>\n",
+       "      <th>total_score</th>\n",
+       "      <th>grade</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>8</td>\n",
+       "      <td>20.4</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>4.0</td>\n",
+       "      <td>96.1</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>59</th>\n",
+       "      <td>60</td>\n",
+       "      <td>21.8</td>\n",
+       "      <td>94.7</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>86</th>\n",
+       "      <td>87</td>\n",
+       "      <td>21.4</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>4.6</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>91</th>\n",
+       "      <td>92</td>\n",
+       "      <td>21.8</td>\n",
+       "      <td>92.7</td>\n",
+       "      <td>7.9</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>106</th>\n",
+       "      <td>107</td>\n",
+       "      <td>28.2</td>\n",
+       "      <td>97.9</td>\n",
+       "      <td>6.3</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999945</th>\n",
+       "      <td>999946</td>\n",
+       "      <td>28.3</td>\n",
+       "      <td>95.0</td>\n",
+       "      <td>8.2</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999949</th>\n",
+       "      <td>999950</td>\n",
+       "      <td>22.1</td>\n",
+       "      <td>94.3</td>\n",
+       "      <td>5.4</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999953</th>\n",
+       "      <td>999954</td>\n",
+       "      <td>24.0</td>\n",
+       "      <td>99.2</td>\n",
+       "      <td>6.9</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999964</th>\n",
+       "      <td>999965</td>\n",
+       "      <td>20.6</td>\n",
+       "      <td>95.5</td>\n",
+       "      <td>4.1</td>\n",
+       "      <td>90.5</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999989</th>\n",
+       "      <td>999990</td>\n",
+       "      <td>24.7</td>\n",
+       "      <td>90.2</td>\n",
+       "      <td>4.1</td>\n",
+       "      <td>100.0</td>\n",
+       "      <td>A</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>72270 rows × 6 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        student_id  weekly_self_study_hours  attendance_percentage  \\\n",
+       "7                8                     20.4                  100.0   \n",
+       "59              60                     21.8                   94.7   \n",
+       "86              87                     21.4                  100.0   \n",
+       "91              92                     21.8                   92.7   \n",
+       "106            107                     28.2                   97.9   \n",
+       "...            ...                      ...                    ...   \n",
+       "999945      999946                     28.3                   95.0   \n",
+       "999949      999950                     22.1                   94.3   \n",
+       "999953      999954                     24.0                   99.2   \n",
+       "999964      999965                     20.6                   95.5   \n",
+       "999989      999990                     24.7                   90.2   \n",
+       "\n",
+       "        class_participation  total_score grade  \n",
+       "7                       4.0         96.1     A  \n",
+       "59                      6.0        100.0     A  \n",
+       "86                      4.6        100.0     A  \n",
+       "91                      7.9        100.0     A  \n",
+       "106                     6.3        100.0     A  \n",
+       "...                     ...          ...   ...  \n",
+       "999945                  8.2        100.0     A  \n",
+       "999949                  5.4        100.0     A  \n",
+       "999953                  6.9        100.0     A  \n",
+       "999964                  4.1         90.5     A  \n",
+       "999989                  4.1        100.0     A  \n",
+       "\n",
+       "[72270 rows x 6 columns]"
+      ]
+     },
+     "execution_count": 29,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[(df[\"weekly_self_study_hours\"]>20) & (df[\"attendance_percentage\"]>90)]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "id": "dda17b22-ce33-4a71-a17a-89af4ad77964",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "np.int64(0)"
+      ]
+     },
+     "execution_count": 30,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"student_id\"].duplicated().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "id": "fb878633-e128-49b0-9fc1-f333c8ce27df",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<StringArray>\n",
+       "['A', 'B', 'C', 'D', 'F']\n",
+       "Length: 5, dtype: str"
+      ]
+     },
+     "execution_count": 31,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"grade\"].unique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "id": "86f2e9e1-eee8-4366-bce8-f290b86ef349",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "5"
+      ]
+     },
+     "execution_count": 32,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"grade\"].nunique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "id": "76eba121-9dc7-4018-8b7f-f9bd15168df8",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "1000000"
+      ]
+     },
+     "execution_count": 33,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"student_id\"].nunique()\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "id": "b65903e1-b114-4d6e-a934-5d6600502464",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "Number of students in each grade:\n",
+      "grade\n",
+      "A    548644\n",
+      "B    258174\n",
+      "C    141980\n",
+      "D     44998\n",
+      "F      6204\n",
+      "Name: count, dtype: int64\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"\\nNumber of students in each grade:\")\n",
+    "print(df['grade'].value_counts())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3a47ffd8-b82e-4b01-8c19-c3a29038a282",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.14.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
